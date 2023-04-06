@@ -25,17 +25,23 @@ const App = () => {
     }
   ];
 
+  const addExpenseHandler = (expense) => {
+    console.log(expenses);
+  }
+
   return React.createElement(
     'div', {},
-    React.createElement(NewExpense),
+    React.createElement(NewExpense, { onAddExpense: addExpenseHandler }),
     React.createElement(Expenses, { expenses: expenses })
   );
-  // return (
-  //   <div className="App">
-  //     <NewExpense/>
-  //     <Expenses expenses={expenses} />
-  //   </div>
-  // );
+
+  return (
+    <div className="App">
+      <NewExpense onAddExpense={addExpenseHandler} />
+      <Expenses expenses={expenses} />
+    </div>
+  );
+  
 }
 
 export default App;
