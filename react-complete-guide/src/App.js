@@ -56,12 +56,12 @@ const App = () => {
     React.createElement(Expenses, { expenses: expenses })
   );
 
-  return (
-    <div className="App">
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses expenses={expenses} o />
-    </div>
-  );
+  // return (
+  //   <div className="App">
+  //     <NewExpense onAddExpense={addExpenseHandler} />
+  //     <Expenses expenses={expenses} o />
+  //   </div>
+  // );
 
 }
 
