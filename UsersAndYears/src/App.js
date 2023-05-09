@@ -20,7 +20,9 @@ function App() {
       {users.length > 0 ?
         <UsersList users={users} />
         :
-        (<p>Empty</p>)
+        (<p>
+          Empty
+        </p>)
       }
     </div>
   );
