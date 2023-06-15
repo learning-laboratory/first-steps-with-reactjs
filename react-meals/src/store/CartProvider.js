@@ -7,34 +7,49 @@ const defaultCartState = {
 };
 
 const cartReducer = (state, action) => {
+
     if (action.type === 'ADD') {
 
-        const updateTotalAmount = state.totalAmount + action.item.price * action.item.amount;
-        const hasItemIndex = state.items.findIndex((item) => item.id === action.item.id);
-        const hasItem = state.items[hasItemIndex];
+        const totalAmount = state.totalAmount + action.item.price * action.item.amount;
+        const index = state.items.findIndex((item) => item.id === action.item.id);
+        const item = state.items[index];
         let updateItems;
 
-        if (hasItem) {
+        if (item) {
             const updateItem = {
-                ...hasItem,
-                amount: hasItem.amount + action.item.amount
+                ...item,
+                amount: item.amount + action.item.amount
             }
             updateItems = [...state.items];
-            updateItems[hasItemIndex] = updateItem;
+            updateItems[index] = updateItem;
         } else {
             updateItems = state.items.concat(action.item);
         }
 
         return {
             items: updateItems,
-            totalAmount: updateTotalAmount
+            totalAmount: totalAmount
         };
-    } else if (action.type === 'REMOVE') {
-        const updateItems = state.items.filter(item => item.id !== action.id);
-        const updateTotalAmount = state.totalAmount - state.items[action.id].price - state.items[action.id].amount;
+    }
+
+    if (action.type === 'REMOVE') {
+
+        const index = state.items.findIndex((item) => item.id === action.id);
+        const item = state.items[index];
+        const totalAmount = state.totalAmount - item.price;
+        let updateItems;
+
+        if (item.amount === 1) {
+            updateItems = state.items.filter(item => item.id !== action.id);
+        } else {
+            const updateItem = { ...item, amount: item.amount - 1 };
+            updateItems = [...state.items];
+            updateItems[index] = updateItem;
+        }
+
         return {
             items: updateItems,
-            totalAmount: updateTotalAmount
+            totalAmount: totalAmount
         };
     }
 

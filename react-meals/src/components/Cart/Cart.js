@@ -8,10 +8,16 @@ import CartItem from './CartItem';
 const Cart = (props) => {
 
     const cartContext = useContext(CartContext);
+    console.log(cartContext)
     const totalAmount = `$${cartContext.totalAmount.toFixed(2)}`;
 
-    const cartItemRemoveHandler = id => { };
-    const cartItemAddHandler = item => { };
+    const cartItemRemoveHandler = id => { 
+        cartContext.removeItem(id);
+    };
+
+    const cartItemAddHandler = item => {
+        cartContext.addItem({...item, amount: 1});
+    };
 
 
     return <Modal onClose={props.onHideCart}>
@@ -21,8 +27,8 @@ const Cart = (props) => {
                 name={item.name}
                 price={item.price}
                 amount={item.amount}
-                onAdd={cartItemAddHandler.bind(null, item.id)}
-                onRemove={cartItemRemoveHandler.bind(null, item)}
+                onRemove={cartItemRemoveHandler.bind(null, item.id)}
+                onAdd={cartItemAddHandler.bind(null, item)}
             />)}
         </ul>
         <div className={classes.total}>
